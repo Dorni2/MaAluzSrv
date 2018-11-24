@@ -1,0 +1,60 @@
+-- Create Scheme
+CREATE DATABASE `ma_aluz` /*!40100 DEFAULT CHARACTER SET hebrew */;
+
+-- Duty Table
+CREATE TABLE `duty` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TypeID` int(11) NOT NULL,
+  `ReqAmount` int(11) NOT NULL,
+  `FromDate` datetime NOT NULL,
+  `ToDate` datetime NOT NULL,
+  `PityPoints` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
+
+-- Duty_To_User
+CREATE TABLE `duty_to_user` (
+  `UserID` int(11) NOT NULL,
+  `DutyId` int(11) NOT NULL,
+  PRIMARY KEY (`UserID`,`DutyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
+
+-- Key_Duty
+CREATE TABLE `key_duty` (
+  `ID` int(11) NOT NULL,
+  `Type` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
+
+-- Request
+CREATE TABLE `request` (
+  `userID` int(11) NOT NULL,
+  `DutyID` int(11) NOT NULL,
+  `IsValid` tinyint(1) DEFAULT NULL,
+  `IsAccepted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`userID`,`DutyID`)
+) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
+
+-- Trade
+CREATE TABLE `trade` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SourceUserID` varchar(45) NOT NULL,
+  `DestinationUserID` varchar(45) NOT NULL,
+  `DutyID` varchar(45) NOT NULL,
+  `IsAccepted` tinyint(1) DEFAULT NULL,
+  `IsAdminAccepted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
+
+-- User
+CREATE TABLE `user` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(16) NOT NULL,
+  `LastName` varchar(16) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `IsAdmin` tinyint(1) NOT NULL,
+  `IsActive` tinyint(1) NOT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
+
